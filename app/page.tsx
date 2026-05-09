@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import Cta from "@/components/CTA"
 import Partners from "@/components/Partners";
 import Logos from "@/components/Logos";
+import FloatingButtons from "@/components/StickyButtons"
 
 export default function Home() {
   return (
@@ -33,6 +34,7 @@ export default function Home() {
         <Contact />
       </section>
       <Footer/>
+      <FloatingButtons/>
       
     </>
   );

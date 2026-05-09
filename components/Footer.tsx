@@ -22,10 +22,19 @@ export default function Footer() {
 
         {/* Left Info */}
         <div className="space-y-4 text-sm">
-          <p>
-            <span className="text-blue-700 font-semibold">ADDRESS:</span>{" "}
-            <span className="text-gray-900">Grant Road, Mumbai</span>
-          </p>
+        <p className="leading-7">
+  <span className="text-blue-700 font-semibold">ADDRESS:</span>{" "}
+  
+  <span className="text-gray-900">
+    Al Madina Building, P Nagare Ln, Pannalal Terrace, Grant Road East,
+  </span>
+
+  <br />
+
+  <span className="ml-[88px] text-gray-900">
+  Bharat Nagar, Grant Road, Mumbai, Maharashtra 400007
+  </span>
+</p>
           <p>
             <span className="text-blue-700 font-semibold">PHONE:</span>{" "}
             <span className="text-gray-900">+91 99871 20290</span>

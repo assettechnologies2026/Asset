@@ -8,11 +8,11 @@ export default function WhyChooseUs() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "center",
     loop: false,
-    // Optional: add skipSnaps for smoother scrolling on mobile
     skipSnaps: false,
   });
 
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [activeCard, setActiveCard] = useState<number | null>(null);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -26,58 +26,108 @@ export default function WhyChooseUs() {
   }, [emblaApi]);
 
   const cards = [
-    { img: "/IT Hardware.webp", title: "IT Hardware", dark: false },
-    { img: "/IT SERVICES 1.webp", title: "IT Services", dark: true },
-    { img: "/IT PERIPHERALS.webp", title: "IT Peripherals", dark: false },
-    { img: "/Forensic Workstation.webp", title: "Forensic Workstation/ Servers", dark: true },
+    {
+      img: "/IT Hardware.webp",
+      title: "IT Hardware",
+      desc: "Servers, desktops, laptops, storage systems, networking equipment, and workstations.",
+      dark: false,
+    },
+    {
+      img: "/IT SERVICES 1.webp",
+      title: "Software Solution",
+      desc: "CRM, ERP, cybersecurity solutions, operating systems, and custom software development.",
+      dark: true,
+    },
+    {
+      img: "/IT PERIPHERALS.webp",
+      title: "IT Peripherals",
+      desc: "Printers, scanners, monitors, projectors, keyboards, mice, audiovisual equipment, and accessories.",
+      dark: false,
+    },
+    {
+      img: "/Forensic Workstation.webp",
+      title: "Forensic Workstation/ Servers",
+      desc: "High-performance systems for digital forensics, data recovery, investigation analysis, and secure data processing.",
+      dark: true,
+    },
   ];
 
   return (
     <div className="w-full px-4 py-10">
-      
-      {/* Carousel Container */}
+      {/* Carousel */}
       <div className="overflow-hidden" ref={emblaRef}>
-        {/* Solution 1: Added gap between slides (gap-4) and a slight margin start (ml-2) for mobile air */}
-        <div className="flex gap-4 ml-2 md:ml-0">
-          {cards.map((card, index) => (
-            <div
-              key={index}
-              // Solution 1: Added px-2 to ensure cards don't touch when scrolling
-              className="flex-[0_0_80%] md:flex-[0_0_25%] flex justify-center px-2"
-            >
-              <div className="w-[252px] h-[500px] flex flex-col overflow-hidden rounded-xl shadow-lg border border-gray-200 transition-transform duration-300">
-                
-                {/* Image */}
-                <div className={`relative h-[70%] w-full ${card.dark ? "bg-white" : "bg-[#001f3f]"}`}>
-                  <Image
-                    src={card.img}
-                    alt={card.title}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
+        <div className="flex gap-4 ml-2 md:ml-0 py-4"> {/* Added py-4 to prevent scale clipping */}
+          {cards.map((card, index) => {
+            const isActive = activeCard === index;
 
-                {/* Content */}
+            return (
+              <div
+                key={index}
+                className="flex-[0_0_80%] md:flex-[0_0_25%] flex justify-center px-2"
+              >
+                {/* Card Container */}
                 <div
-                  className={`h-[30%] p-4 flex flex-col justify-center items-center text-center ${
-                    card.dark ? "bg-[#001f3f]" : "bg-white"
-                  }`}
+                  onMouseEnter={() => setActiveCard(index)}
+                  onMouseLeave={() => setActiveCard(null)}
+                  onClick={() =>
+                    setActiveCard(activeCard === index ? null : index)
+                  }
+                  className={`w-[252px] h-[500px] flex flex-col rounded-2xl border-2 shadow-xl cursor-pointer transition-all duration-500 group overflow-hidden isolate ${
+                    isActive 
+                      ? "scale-105 border-blue-500 z-10" 
+                      : "border-gray-200 hover:scale-105 hover:border-blue-400"
+                  } bg-white`}
                 >
-                  <h3 className={`font-semibold text-sm ${card.dark ? "text-white" : "text-[#001f3f]"}`}>
-                    {card.title}
-                  </h3>
-                  <p className={`text-xs mt-1 ${card.dark ? "text-blue-200" : "text-[#001f3f]"}`}>
-                    Short description goes here.
-                  </p>
-                </div>
+                  {/* Image Section */}
+                  <div
+                    className={`relative w-full transition-all duration-500 overflow-hidden ${
+                      isActive ? "h-[30%]" : "h-[70%]"
+                    } ${card.dark ? "bg-white" : "bg-[#001f3f]"}`}
+                  >
+                    <Image
+                      src={card.img}
+                      alt={card.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  </div>
 
+                  {/* Content Section */}
+                  <div
+                    className={`transition-all duration-500 flex flex-col justify-center items-center text-center px-5 flex-grow ${
+                      isActive ? "h-[70%]" : "h-[30%]"
+                    } ${card.dark ? "bg-[#001f3f]" : "bg-white"}`}
+                  >
+                    {/* Title */}
+                    <h3
+                      className={`font-bold transition-all duration-500 ${
+                        isActive ? "text-xl mb-4 text-blue-400" : "text-sm"
+                      } ${
+                        card.dark && !isActive ? "text-white" : "text-[#001f3f]"
+                      } ${isActive && !card.dark ? "text-blue-600" : ""}`}
+                    >
+                      {card.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p
+                      className={`transition-all duration-500 ${
+                        isActive
+                          ? "text-sm opacity-100 leading-relaxed"
+                          : "text-xs opacity-0 h-0 overflow-hidden" 
+                      } ${card.dark ? "text-gray-200" : "text-gray-700"}`}
+                    >
+                      {card.desc}
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
-      {/* Solution 2: Added md:hidden to hide dots on laptop size screens */}
+      {/* Dots (Mobile Only) */}
       <div className="flex justify-center mt-8 gap-2 md:hidden">
         {cards.map((_, index) => (
           <button
