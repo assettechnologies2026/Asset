@@ -26,11 +26,9 @@ export default function Home() {
         <About />
       </section>
       <Stats />
-      
       <Clients />
       <Cta/>
       <section id="certificate" className="pt-20">
-
       <Certificate/>
       </section>
       <Logos/>
