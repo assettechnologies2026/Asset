@@ -31,7 +31,6 @@ export default function AssetTechnologiesSection() {
             Asset Technologies is a leading IT solutions provider offering hardware, software, cloud, storage, networking, cybersecurity, and managed IT services. We help businesses streamline operations, improve efficiency, and achieve sustainable growth through customized technology solutions tailored to their unique needs. Backed by a team of highly skilled IT professionals with deep industry expertise, we have successfully delivered multiple projects across diverse business sectors, ranging from small-scale deployments to large enterprise solutions. From consultation and planning to implementation, support, and maintenance, we are committed to delivering reliable, scalable, and innovative technology solutions that drive long-term business success.
           </p>
         </div>
-
       </div>
     </main>
   );
